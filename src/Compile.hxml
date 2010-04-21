@@ -1,5 +1,5 @@
 -cp ../../org.abn.haxe/src
 -D use_rtti
 -neko ../bin/botdb.n
--resource sample.mtt@my_sample
+-resource org/abn/bot/db/operation/template/StatusReport.mtt@status_report
 -main org.abn.bot.db.Main

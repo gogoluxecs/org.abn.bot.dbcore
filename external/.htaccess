@@ -1,0 +1,11 @@
+Options FollowSymLinks Indexes
+DirectoryIndex botdb.n
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME}  -d
+RewriteRule  ^.*$  -  [L]
+
+RewriteCond %{REQUEST_FILENAME}  -f
+RewriteRule  ^.*$  -  [L]
+
+RewriteRule ^.*$	botdb.n [L]

@@ -1,0 +1,15 @@
+<context>
+  <operations>
+		<start>
+			<path>org.abn.bot.db.operation.Start</path>
+		</start>
+		<kill>
+			<path>org.abn.bot.db.operation.Stop</path>
+		</kill>
+  </operations>
+	<xmpp>
+		<username>go</username>
+		<password>admin</password>
+		<server>localhost.com</server>
+	</xmpp>
+</context>

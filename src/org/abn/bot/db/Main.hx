@@ -17,20 +17,20 @@ class Main
 
   static public function main()
   {
-    var str = haxe.Resource.getString("my_sample");
+    /*
+    var str = haxe.Resource.getString("status_report");
     var t = new haxe.Template(str);
     var output = t.execute({ name : "John", age : 33 });
     trace(output);
-
-    /*
-      var parser:ContextParser = new ContextParser();
-		  var xml:Xml = Xml.parse(File.getContent(Web.getCwd() + "assets/config.xml"));
-		  var fast:Fast = new Fast(xml.firstElement());
-		  var context:Context = parser.getContext(fast);
-		
-      service = new BotService(new AppContext(context.getProperties()));
-		  service.executeOperation(Web.getURI().substr(1), Web.getParams());
-		*/
+    */
+    
+    var parser:ContextParser = new ContextParser();
+	  var xml:Xml = Xml.parse(File.getContent(Web.getCwd() + "assets/config.xml"));
+	  var fast:Fast = new Fast(xml.firstElement());
+	  var context:Context = parser.getContext(fast);
+	
+    service = new BotService(new AppContext(context.getProperties()));
+	  service.executeOperation(Web.getURI().substr(1), Web.getParams());
   }
   
   static public function handleRequests(request:Dynamic)
