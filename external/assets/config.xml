@@ -1,4 +1,7 @@
 <context>
+  <signature>
+    <name>Datastorage</name>
+  </signature>
   <operations>
 		<start>
 			<path>org.abn.bot.db.operation.Start</path>

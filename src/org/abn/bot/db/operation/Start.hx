@@ -18,6 +18,7 @@ import xmpp.Message;
 class Start extends BotOperation
 {
 	private var thread:Thread;
+	
 	public override function execute(params:Hash<String>):String
 	{
 		if (this.botContext.has("started"))
@@ -25,8 +26,9 @@ class Start extends BotOperation
 			
 		this.thread = Thread.current();
 		
-		this.initXmpp();
-		
+    this.botContext.openXMPPConnection(onConnected, 
+      onConnectFailed, onDisconnected);	
+
 		UberToraContext.redirectRequests(Main.handleRequests);
 		this.botContext.set("started", true);
 		
@@ -37,6 +39,7 @@ class Start extends BotOperation
 	private function onConnected():Void
 	{
 		trace("actionfeed connected");
+		
 		this.thread.sendMessage("started");
 	}
 	
@@ -53,10 +56,5 @@ class Start extends BotOperation
 			trace("trying to reconnect...");
 			this.botContext.openXMPPConnection(onConnected, onConnectFailed, onDisconnected);
 		}
-	}
-	
-	private function initXmpp():Void
-	{
-    this.botContext.openXMPPConnection(onConnected, onConnectFailed, onDisconnected);	
 	}
 }

@@ -7,7 +7,7 @@ import org.abn.neko.xmpp.XMPPContext;
 
 // import common required bot operations
 import org.abn.bot.db.operation.Start;
-//import org.abn.bot.db.operation.Stop;//import org.abn.bot.db.operation.StatusReport;
+import org.abn.bot.db.operation.Stop;//import org.abn.bot.db.operation.StatusReport;
 
 class BotService extends BotContext
 {
