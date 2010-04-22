@@ -9,6 +9,7 @@ import org.abn.bot.operation.BotOperationFactory;
 import neko.vm.Thread;
 import haxe.Stack;
 import haxe.xml.Fast;
+import haxe.Template;
 import neko.Web;
 import xmpp.Message;
 
@@ -19,13 +20,22 @@ class Start extends BotOperation
 {
 	private var thread:Thread;
 	
-	public override function execute(params:Hash<String>):String
+  /**
+   *
+   * @access public
+   * @return String
+   */
+	override public function execute(params:Hash<String>):String
 	{
+    var templateName:String = haxe.Resource.getString("status_report");
+    var t = new haxe.Template(templateName);
+	
 		if (this.botContext.has("started"))
-			return "<response>already started</response>";
+			return t.execute({ status_report : "Already started"});
 			
 		this.thread = Thread.current();
 		
+		// init XMPP
     this.botContext.openXMPPConnection(onConnected, 
       onConnectFailed, onDisconnected);	
 
@@ -33,7 +43,7 @@ class Start extends BotOperation
 		this.botContext.set("started", true);
 		
 		var status:String = Thread.readMessage(true);
-		return "<response>"+status+"</response>";
+		return t.execute({ status_report : "Started"});
 	}
 	
 	private function onConnected():Void

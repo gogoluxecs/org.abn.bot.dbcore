@@ -11,7 +11,7 @@
 		</kill>
   </operations>
 	<xmpp>
-		<username>go</username>
+		<username>bot.datastorage.abn_botdb</username>
 		<password>admin</password>
 		<server>localhost.com</server>
 	</xmpp>

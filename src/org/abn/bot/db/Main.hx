@@ -17,13 +17,6 @@ class Main
 
   static public function main()
   {
-    /*
-    var str = haxe.Resource.getString("status_report");
-    var t = new haxe.Template(str);
-    var output = t.execute({ name : "John", age : 33 });
-    trace(output);
-    */
-    
     var parser:ContextParser = new ContextParser();
 	  var xml:Xml = Xml.parse(File.getContent(Web.getCwd() + "assets/config.xml"));
 	  var fast:Fast = new Fast(xml.firstElement());
