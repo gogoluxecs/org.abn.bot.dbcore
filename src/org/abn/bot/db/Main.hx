@@ -1,4 +1,4 @@
-package org.abn.bot.db;
+﻿package org.abn.bot.db;
 
 import haxe.Stack;
 import haxe.xml.Fast;
@@ -13,23 +13,25 @@ import org.abn.uberTora.UberToraContext;
 
 class Main 
 {
-  static private var service:BotService;
-
-  static public function main()
-  {
-    var parser:ContextParser = new ContextParser();
-	  var xml:Xml = Xml.parse(File.getContent(Web.getCwd() + "assets/config.xml"));
-	  var fast:Fast = new Fast(xml.firstElement());
-	  var context:Context = parser.getContext(fast);
+	private static var service:BotService;
 	
-    service = new BotService(new AppContext(context.getProperties()));
-	  service.executeOperation(Web.getURI().substr(1), Web.getParams());
-  }
-  
-  static public function handleRequests(request:Dynamic)
-  {
-    var requestContext:ClientRequestContext = UberToraContext.getAsClientRequestContext(request);
-    
+	public static function main() 
+	{
+		var parser:ContextParser = new ContextParser();
+		var xml:Xml = Xml.parse(File.getContent(Web.getCwd() + "assets/config.xml"));
+		var fast:Fast = new Fast(xml.firstElement());
+		var context:Context = parser.getContext(fast);
+		
+		service = new BotService(new AppContext(context.getProperties()));
+		Lib.print(service.executeOperation(Web.getURI().substr(1), Web.getParams()));
+	}
+	
+	public static function handleRequests(request:Dynamic):Void
+	{
+		var requestContext:ClientRequestContext = UberToraContext.getAsClientRequestContext(request);
+
+		trace("incoming request");
+		
 		try
 		{
 			requestContext.sendResponse(service.executeOperation(requestContext.getURI().substr(1),requestContext.getParams()));
@@ -39,5 +41,6 @@ class Main
 			requestContext.sendResponse(e);
 			trace(Stack.toString(Stack.exceptionStack()));
 		}
-  }
+	}
+	
 }

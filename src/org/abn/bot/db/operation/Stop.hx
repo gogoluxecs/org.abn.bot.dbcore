@@ -1,28 +1,22 @@
 ﻿package org.abn.bot.db.operation;
 
-import neko.Web;
+import org.abn.uberTora.UberToraContext;
 import org.abn.bot.operation.BotOperation;
 
-/**
- * Operation runs only in HTTP context
- */
 class Stop extends BotOperation
 {
-  /**
-   *
-   * @access public
-   * @return String
-   */
-  override public function execute(params:Hash<String>):String
-  {
-    if (!this.botContext.has("started"))
-			return "<response>not started</response>";
+	public override function execute(params:Hash<String>):String
+	{		
+	  var templateName:String = haxe.Resource.getString("status_report");
+	  var t = this.botContext.getRender(templateName);
+	
+		if (!this.botContext.has("started"))
+			return t.execute({ status_report : "not started" });
 		
 		this.botContext.set("started", null);
 		this.botContext.closeXMPPConnection();
+		UberToraContext.redirectRequests(null);
 		
-		Web.cacheModule(null);
-		trace("bot db stopped");
-		return "<response>stopped</response>";
-  }
+    return t.execute({ status_report : "stopped"});
+	}
 }

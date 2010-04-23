@@ -2,6 +2,13 @@
   <signature>
     <name>Datastorage</name>
   </signature>
+  <!--
+    datastorage bot required operations
+    insert
+    update
+    delete
+    list
+   -->
   <operations>
 		<start>
 			<path>org.abn.bot.db.operation.Start</path>
@@ -9,6 +16,12 @@
 		<kill>
 			<path>org.abn.bot.db.operation.Stop</path>
 		</kill>
+    <statusReport>
+      <path>org.abn.bot.db.operation.StatusReport</path>
+    </statusReport>
+    <insert>
+      <path>org.abn.bot.db.operation.Insert</path>
+    </insert>
   </operations>
 	<xmpp>
 		<username>bot.datastorage.abn_botdb</username>
