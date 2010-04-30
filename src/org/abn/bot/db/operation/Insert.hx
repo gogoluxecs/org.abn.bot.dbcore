@@ -1,5 +1,6 @@
 ﻿package org.abn.bot.db.operation;
 
+import org.abn.bot.db.action.InitModel;
 import org.abn.bot.operation.BotOperation;
 
 class Insert extends BotOperation
@@ -8,7 +9,13 @@ class Insert extends BotOperation
 	{
 	  var templateName:String = haxe.Resource.getString("status_report");
 	  var t = this.botContext.getRender(templateName);
-	
-		return t.execute({ status_report : "data inserted"});
+
+    if(params.exists('init_model'))
+    {
+      var a:InitModel = new InitModel(params);
+      return a.execute();
+    }
+
+    return t.execute({ status_report : params});
 	}
 }

@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Bot operation syntax</title>
+</head>
+<body>
+<h1>Operations</h1>
+
+<h2>Insert</h2>
+
+<h3>Abstract</h3>
+
+<p>Universal bot operation syntax.</p>
+
+<h3>Sample syntax</h3>
+
+<p>
+  Simple table users related to user_picture table. First insert operation must be syntax 1 or syntax 3.
+  Dynamic buid of model supports part of operations from externa schema options.
+</p>
+
+<b>syntax 1 - init model dynamic + insert content</b>
+
+<p>Data types</p>
+  <li>
+    String - by default 255, String(25) - length 25, String(Text) - Text.
+  </li>
+  <li>
+    Integer - by default database adapter specific length.
+  </li>
+  <li>
+    Bool true or false.
+  </li>
+  <li>
+    Date - by default database specific 
+  </li>
+</ul>
+
+<p>Constraint</p>
+<ul>
+  <li>
+    By default constraint are cascade. Options - cascade, restrict
+  </li>
+</ul>
+
+<p>Auto make</p>
+<ul>
+  <li>Auto inserted values created_at and updated_at.</li>
+  <li>Auto make relations between databases.</li>
+  <li>Complex relations 1:pk 2:pk to table 2 1:pk and 2:pk will be supported from externa schema.</li>
+  <li>Relatio between user and picture will be auto created many ot many.</li>
+</ul>
+
+<pre>
+
+// insert + dynamic create
+user : {
+  String(32) required username : "test user name",
+  String required email : "test@localhost",
+  Bool is_activated : true,
+
+  releation : {
+    profile_pictures : {
+      String user_profile_picture : 'test_profile_picture.jpg',
+      
+      relation : {
+        pictures : {
+          Integer profile_picture_id : parent,
+        },
+      },
+                  
+      constraint : {
+        delete : "cascade"
+      }
+    },
+    
+    user_address : {
+      String(Text) address : "This is the text here inputted here by certain content",
+      String city : "Varna",
+      String street : "street 1",
+      Integer required post_code : "123",
+
+      constraint : {
+        delete : "cascade"
+      }      
+    },
+  },
+}
+
+
+// change model dynamic
+
+alter : {
+}
+
+</pre>
+
+<p>syntax 1 - other idea</p>
+
+<pre>
+
+</pre>
+
+<b>syntax 3 - init model</b>
+
+<pre>
+user : {
+  String(32) required username : "test user name",
+  String required email : "test@localhost",
+  Bool is_activated : true,
+},
+
+picture : {
+  String title : "test picture title",
+  String path : "test_profile_picture.jpg",
+},
+
+user_address : {
+  String(Text) address : "This is the text here inputted here by certain content",
+  String city : "Varna",
+  String street : "street 1",
+  Integer required post_code : "123",
+},
+
+relation : {
+  user : {user_addres, picture},
+}
+
+</pre>
+
+<b>syntax 4 - insert content</b>
+
+<p>syntax 2 - external schema</p>
+
+<pre>
+user : {
+  String(32) required username,
+  String required email,
+  Bool is_activated,
+},
+
+picture : {
+  String title,
+  String path
+},
+
+user_address : {
+  String(Text) address,
+  String city,
+  String street,
+  Integer required post_code,
+},
+
+relation : {
+  user : {user_address, picture}
+}
+</pre>
+
+<pre>
+external_schema : "http://path_to_your_xml_defined_schema_file"
+</pre>
+
+</body>
+</html>
