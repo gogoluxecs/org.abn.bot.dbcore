@@ -1,6 +1,6 @@
 package org.abn.bot.db.action;
 
-class InitModel
+class Model
 {
   private var params:Hash<String>;
 

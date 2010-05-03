@@ -2,6 +2,9 @@
   <signature>
     <name>Datastorage</name>
   </signature>
+  <adapter>
+    <name>MySQL</name>
+  </adapter>
   <!--
     datastorage bot required operations
     insert

@@ -96,13 +96,7 @@ alter : {
 
 </pre>
 
-<p>syntax 1 - other idea</p>
-
-<pre>
-
-</pre>
-
-<b>syntax 3 - init model</b>
+<p><b>syntax 1 - other idea 1</b></p>
 
 <pre>
 user : {
@@ -129,33 +123,135 @@ relation : {
 
 </pre>
 
-<b>syntax 4 - insert content</b>
 
-<p>syntax 2 - external schema</p>
-
+<p><b>syntax 1 - other idea 2</b></p>
+&lt;modelAndContent&gt;
 <pre>
 user : {
-  String(32) required username,
-  String required email,
-  Bool is_activated,
+  username : {
+    options : ["String(32)", "required"],
+    value : "test user name"
+  },
+  
+  email : {
+    options : ["String", "required"],
+    value : "test@localhost"  
+  },
+  
+  is_activated : {
+    options : ["Bool"],
+    value : true
+  }
 },
 
 picture : {
-  String title,
-  String path
+  title : {
+    options : ["String"],
+    value : "test picture title"
+  },
+  
+  path : {
+    options : ["String"],
+    value : "test_profile_picture.jpg"
+  }
+},
+
+user_addres : {
+  address : {
+    options : ["String(Text)"],
+    value : "This is the text here inputted by certain content"
+  },
+  
+  city : {
+    options : ["String"],
+    value : "Varna"
+  },
+  
+  street : {
+    options : ["String"],
+    value : "Street 1"
+  },
+  
+  is_activated : {
+    options : ["Integer"],
+    value : "123"
+  }
+},
+
+relation : {
+  user : {user_addres, picture}
+}
+</pre>
+&lt;/modelAndContent&gt;
+
+<p><b>syntax 3 - init model</b></p>
+&lt;model&gt;
+<pre>
+user : {
+  username : {"String(32)", "required"},
+  email : {"String", "required"},
+  is_activated : {"Bool"}
+},
+
+picture : {
+  titile : {"String"},
+  path : {"String"}
 },
 
 user_address : {
-  String(Text) address,
-  String city,
-  String street,
-  Integer required post_code,
+  address : {"String(Text)"},
+  city : {"String"},
+  street : {"String"},
+  is_activated : {"String"}
+},
+
+relation : {user_address, picture}
+
+</pre>
+&lt;/model&gt;
+
+<p><b>syntax 3 - init model xml</b></p>
+&lt;model&gt;
+<pre>
+&lt;user&gt;
+  &lt;useranme&gt;
+    &lt;String&gt;32&lt;/String&gt; 
+    &lt;required/&gt;
+    &lt;val&gt;test user name&lt;val&gt;
+  &lt;/useranme&gt;
+&lt;/user&gt;
+</pre>
+&lt;/model&gt;
+
+<p><b>syntax 4 - insert content</b></p>
+
+&lt;content&gt;
+<pre>
+user :{
+  username : "test user name",
+  email : "test@localhost",
+  is_activated : true
+},
+
+picture : {
+  titile : "test picture title",
+  path : "test_profile_picture.jpg",
+},
+
+user_address : {
+  address : "This is my test address here",
+  city : "Varna",
+  street : "street 1",
+  post_code : "123"
 },
 
 relation : {
   user : {user_address, picture}
 }
 </pre>
+&lt;/content&gt;
+
+<p><b>syntax 2 - external schema</b></p>
 
 <pre>
 external_schema : "http://path_to_your_xml_defined_schema_file"
