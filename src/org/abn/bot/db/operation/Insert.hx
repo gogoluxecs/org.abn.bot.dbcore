@@ -1,33 +1,26 @@
 ﻿package org.abn.bot.db.operation;
 
-import org.abn.bot.db.action.Model;
 import org.abn.bot.db.action.ActionContext;
 import org.abn.bot.operation.BotOperation;
+import org.abn.bot.db.action.AdapterInsert;
 
 private typedef InsertAction = {
-  var i : org.abn.bot.db.action.Insert;
+  var i : AdapterInsert;
 }
 
 class Insert extends BotOperation
 {
 	public override function execute(params:Hash<String>):String
 	{
-	  var templateName:String = haxe.Resource.getString("status_report");
-	  var t = this.botContext.getRender(templateName);
+	  //var templateName:String = haxe.Resource.getString("status_report");
+	  //var t = this.botContext.getRender(templateName);
 
     var actionContext:ActionContext = new ActionContext(this.botContext);
-
-    /*
-    if(params.exists("init_model"))
-    {
-      var a:Model = new Model(params);
-      return a.execute();
-    }
-    */
+    actionContext.setParams(params);    
     
-    var a : InsertAction = { i : new org.abn.bot.db.action.Insert() };
+    var a : InsertAction = { i : new AdapterInsert(actionContext) };
     return a.i.execute();
     
-    return t.execute({ status_report : params});
+    //return t.execute({ status_report : params});
 	}
 }
