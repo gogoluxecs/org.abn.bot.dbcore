@@ -1,4 +1,4 @@
-package org.abn.bot.db.action;
+package org.abn.bot.db.adapter;
 
 import org.abn.bot.BotContext;
 

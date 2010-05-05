@@ -1,6 +1,8 @@
-package org.abn.bot.db.action;
+package org.abn.bot.db.adapter;
 
-import org.abn.bot.db.action.ActionContext;
+typedef Adaptee = {
+  var a : Dynamic;
+}
 
 /**
  * Object adapter class
@@ -9,11 +11,11 @@ class ActionAdapter
 {
   public var context:ActionContext;
   
+  // Mapx adapter types    
   static public var TYPE_MYSQL:String = "MySQL";
   static public var TYPE_NEO4J:String = "Neo4J";
 
   /**
-   *
    * @access public
    * @return Void
    */
@@ -23,6 +25,8 @@ class ActionAdapter
   }
   
   /**
+   * Returns context adapter
+   *
    * @access public
    * @return String
    */
@@ -31,5 +35,14 @@ class ActionAdapter
     return this.context.get("adapter.name");
   }
   
-  
+  /**
+   * Abtract execute function
+   *
+   * @access public
+   * @return String
+   */
+  public function execute():String
+  {
+    return throw Type.getClassName(ActionAdapter) + ": abstract execute";
+  }
 }

@@ -10,7 +10,7 @@
     insert
     update
     delete
-    list
+    fetch
    -->
   <operations>
 		<start>
